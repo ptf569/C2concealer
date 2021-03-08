@@ -28,6 +28,13 @@ class dnsOptions(object):
 		self.dns_sleep = None
 		self.dns_ttl = None
 		self.dns_max_txt = None
+		self.beacon = None
+		self.get_A = None
+		self.get_AAAA = None
+		self.get_TXT = None
+		self.put_metadata = None
+		self.put_output = None
+		self.ns_response = None
 
 	def randomizer(self):
 		
@@ -52,6 +59,13 @@ class dnsOptions(object):
 		self.dns_stager_subhost = str(random.choice(dns.subdomains)) + "."
 		self.maxdns = str(random.randint(240,255))
 		self.dns_sleep = str(random.randint(100,150))
+		self.beacon = str(random.choice(dns.beacon))
+		self.get_A = str(random.choice(dns.get_a))
+		self.get_AAAA = str(random.choice(dns.get_aaaa))
+		self.get_TXT = str(random.choice(dns.get_txt))
+		self.put_metadata = str(random.choice(dns.put_metadata))
+		self.put_output = str(random.choice(dns.put_output))
+		self.ns_response = str(random.choice(dns.ns_response))
 
 		#static
 		self.dns_max_txt = str(252)
@@ -62,20 +76,38 @@ class dnsOptions(object):
 
 		'''
 		Method to print dns options attributes to string formatted to Cobalt Strike recs.
-
+        Options moved into 'dns-beacon' group in 4.3:
 		Output: returns a string with attribute values, headers and appropriate 
 		indentation/line-breaks formatted for the dns options section of the profile.
 
 		Example:
+		dns-beacon {
 
-		set dns_idle "8.8.8.8";
-		set maxdns "245";
-		set dns_sleep "0";
+		set dns_idle             "1.2.3.4";
+		set dns_max_txt          "200";
+		set dns_sleep            "1";
+		set dns_ttl              "5";
+		set maxdns               "200";
+		set dns_stager_prepend   "doc-stg-prepend";
+		set dns_stager_subhost   "doc-stg-sh.";
 
+		# DNS subhost override options added in 4.3:
+		set beacon               "doc.bc.";
+		set get_A                "doc.1a.";
+		set get_AAAA             "doc.4a.";
+		set get_TXT              "doc.tx.";
+		set put_metadata         "doc.md.";
+		set put_output           "doc.po.";
+
+		set ns_response          "zero";
+
+		}
 		'''
 
 		profileString = ''
+		profileString += 'dns-beacon  {\n\n'
 		for attr, value in self.__dict__.items():
-			profileString += 'set ' + attr + ' "' + value + '";\n'
+			profileString += '\tset ' + attr + ' "' + value + '";\n'
 		profileString += '\n'
-		return profileString 
+		profileString += '}\n'
+		return profileString

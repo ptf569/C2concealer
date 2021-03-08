@@ -126,7 +126,7 @@ def main():
 			retryCount+=1
 			os.remove((os.getcwd() + '/' + profile.globalOptions.sample_name + '.profile'))
 
-		print("[-] Attempted to create str(variant_count) profiles. c2lint check failed.")
+		print("[-] Attempted to create {} profiles. c2lint check failed.".format(str(variant_count)))
 		print("[i] If you selected a large amount of variants, please retry again.")
 		print("[x] Exiting program.")
 		sys.exit()

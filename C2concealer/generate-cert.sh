@@ -97,20 +97,24 @@ func_apache_check(){
 }
 
 func_install_letsencrypt(){
-  echo '[Starting] cloning into letsencrypt!'
-  git clone https://github.com/certbot/certbot /opt/letsencrypt
-  echo '[Success] letsencrypt is built!'
-  cd /opt/letsencrypt
+  echo '[Starting] Installing Certbot!'
+  add-apt-repository ppa:certbot/certbotadd-apt-repository ppa:certbot/certbot
+  apt install python-certbot-apache
+  echo '[Success] Certbot installed!'
   echo '[Starting] to build letsencrypt cert!'
-  ./letsencrypt-auto --apache -d $domain -n --register-unsafely-without-email --agree-tos 
+  certbot --apache -d $domain  -d www.$domain -n --register-unsafely-without-email --agree-tos
   if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
     echo '[Success] letsencrypt certs are built!'
     service apache2 stop
     echo '[Info] Apache service stopped'
+    echo "[Info] Make sure you check your ufw rules"
+    ufw status numbered
   else
     echo "[ERROR] letsencrypt certs failed to build.  Check that DNS A record is properly configured for this domain"
     service apache2 stop
     echo "[Info] Apache service stopped"
+    echo "[Info] Make sure you check your ufw rules"
+    ufw status numbered
     exit 1
   fi
 }
@@ -138,3 +142,23 @@ main() {
 }
 
 main
+
+
+#func_install_letsencrypt(){
+#  echo '[Starting] cloning into letsencrypt!'
+#  git clone https://github.com/certbot/certbot /opt/letsencrypt
+#  echo '[Success] letsencrypt is built!'
+#  cd /opt/letsencrypt
+#  echo '[Starting] to build letsencrypt cert!'
+#  ./letsencrypt-auto --apache -d $domain -n --register-unsafely-without-email --agree-tos
+#  if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
+#    echo '[Success] letsencrypt certs are built!'
+#    service apache2 stop
+#    echo '[Info] Apache service stopped'
+#  else
+#    echo "[ERROR] letsencrypt certs failed to build.  Check that DNS A record is properly configured for this domain"
+#    service apache2 stop
+#    echo "[Info] Apache service stopped"
+#    exit 1
+#  fi
+#}

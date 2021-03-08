@@ -62,4 +62,4 @@ class sslOptions(object):
 		else:
 			profileString = ''
 
-		return profileString 
+		return profileString

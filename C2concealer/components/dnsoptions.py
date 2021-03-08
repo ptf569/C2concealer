@@ -1,5 +1,5 @@
 import random
-from ..data import dns
+from C2concealer.data import dns
 
 class dnsOptions(object):
 

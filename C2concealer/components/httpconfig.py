@@ -1,5 +1,5 @@
 import random
-from ..data import reg_headers
+from C2concealer.data import reg_headers
 
 class httpConfig(object):
 

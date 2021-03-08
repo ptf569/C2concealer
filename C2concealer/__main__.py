@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-from .profile import Profile
+from profile import Profile
 import argparse
 import sys
 import os
 import fnmatch
 import string
-from .helpers import chooseSSL, _debug_generateOneProfile, find, variantCountSelection
+from helpers import chooseSSL, _debug_generateOneProfile, find, variantCountSelection
 
 
 def main():
@@ -124,7 +124,7 @@ def main():
 				print("[x] You need to run the 'update' program from within CobaltStrike before c2lint will run.")
 				sys.exit()
 			retryCount+=1
-			os.remove((os.getcwd() + '/' + profile.globalOptions.sample_name + '.profile'))	
+#			os.remove((os.getcwd() + '/' + profile.globalOptions.sample_name + '.profile'))
 
 		print("[-] Attempted to create 10 profiles. All 10 failed c2lint check.")
 		print("[i] If you selected a large amount of variants, please retry again.")

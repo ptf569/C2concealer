@@ -1,5 +1,5 @@
 import random
-from ..data import smb
+from C2concealer.data import smb
 
 class smbOptions(object):
 

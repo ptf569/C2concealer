@@ -1,5 +1,5 @@
 import random
-from ..data import post_ex
+from C2concealer.data import post_ex
 
 class postEx(object):
 

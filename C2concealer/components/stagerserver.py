@@ -1,7 +1,7 @@
 import random
 import base64
 import uuid
-from ..data import stage, reg_headers, params
+from C2concealer.data import stage, reg_headers, params
 
 class stagerServer(object):
 

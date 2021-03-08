@@ -2,7 +2,7 @@ import string
 import os, re, readline, glob
 import fnmatch
 import sys
-from .profile import Profile
+from profile import Profile
 import getpass
 import subprocess
 

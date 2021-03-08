@@ -1,9 +1,9 @@
-from .components import *
+from components import *
 import datetime
 import os
 import sys
 import random
-from .data import urls
+from data import urls
 
 class Profile(object):
 

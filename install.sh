@@ -6,6 +6,4 @@ fi
 apt-get update
 apt-get -y install python3-pip
 apt-get -y install default-jre
-git submodule init
-git submodule update
 pip3 install -e .

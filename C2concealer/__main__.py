@@ -6,7 +6,7 @@ import sys
 import os
 import fnmatch
 import string
-from helpers import chooseSSL, _debug_generateOneProfile, find, variantCountSelection
+from C2concealer.helpers import chooseSSL, _debug_generateOneProfile, find, variantCountSelection
 
 
 def main():

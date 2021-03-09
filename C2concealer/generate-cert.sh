@@ -98,11 +98,12 @@ func_apache_check(){
 
 func_install_letsencrypt(){
   echo '[Starting] Installing Certbot!'
-  add-apt-repository ppa:certbot/certbotadd-apt-repository ppa:certbot/certbot
-  apt install python-certbot-apache
+  #add-apt-repository ppa:certbot/certbotadd-apt-repository ppa:certbot/certbot
+  apt install certbot
   echo '[Success] Certbot installed!'
   echo '[Starting] to build letsencrypt cert!'
-  certbot --apache -d $domain  -n --register-unsafely-without-email --agree-tos
+  certbot certonly --standalone -d $domain  -n --register-unsafely-without-email --agree-tos
+  # certbot --apache -d $domain  -n --register-unsafely-without-email --agree-tos
   if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
     echo '[Success] letsencrypt certs are built!'
     service apache2 stop

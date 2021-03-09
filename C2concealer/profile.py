@@ -108,7 +108,7 @@ class Profile(object):
 
 		'''
 		path_split = path.rsplit('/',1)
-		lintResults = os.popen('cd ' + path_split[0] + '  &&  ./' + path_split[1] + ' ' + os.getcwd() + '/' + self.globalOptions.sample_name + '.profile' ).readlines()
+		lintResults = os.popen('cd ' + path_split[0] + '  &&  ./' + path_split[1] + ' ' + os.getcwd() + '/profiles/' + self.globalOptions.sample_name + '.profile' ).readlines()
 		passed = True
 		for outputline in lintResults:
 			if 'Error(s)' in outputline or '[-]' in outputline:
@@ -129,7 +129,7 @@ class Profile(object):
 
 		'''
 
-		with open(self.globalOptions.sample_name+'.profile', 'w') as file:
+		with open('profiles/'+self.globalOptions.sample_name+'.profile', 'w') as file:
 			file.write(self.profileString)
 
 

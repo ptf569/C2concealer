@@ -83,3 +83,7 @@ Version 1.0
 - Public version of FortyNorth Security's internal tool.
 - Added support for CS 4.0 (specifically multiple HTTP variants)
 - Updated README.md
+
+ptf update
+- Added support for CS 4.3 (malleable DNS profile)
+- Updated for use with certbot apache

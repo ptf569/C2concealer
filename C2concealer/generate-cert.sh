@@ -69,24 +69,17 @@ func_apache_check(){
   fi
   if [ $(which apache2) ]; then
     echo '[Sweet] Apache2 is already installed'
-    service apache2 start
+    service apache2 stop
     echo
   else
     apt-get update
-    apt-get install apache2 -y 
+    apt-get install apache2 -y
     echo '[Success] Apache2 is now installed'
-    echo
-    service apache2 restart
-    service apache2 start
+    service apache2 stop
   fi
-  if [ $(netstat -antup | grep apache | grep LISTEN | grep -c ":80") -ge 1 ]; then  
-    echo '[Success] Apache2 is up and running!'
-  else 
-    echo
-    echo ' [ERROR]: Apache2 does not seem to be running on'
-    echo '          port 80? Try manual start?'
-    echo
-    exit 1
+  if [ $(netstat -antup | grep apache | grep LISTEN | grep -c ":80") -ge 1 ]; then
+    echo '[Stopping] Apache2 is running, we need to kill it!'
+    service apache2 stop
   fi
   if [ $(which ufw) ]; then
     echo 'Looks like UFW is installed, opening ports 80 and 443'
@@ -96,15 +89,15 @@ func_apache_check(){
   fi
 }
 
+
 func_install_letsencrypt(){
   echo '[Starting] Installing Certbot!'
   #add-apt-repository ppa:certbot/certbotadd-apt-repository ppa:certbot/certbot
-  apt install certbot
+  apt -y install certbot
   echo '[Success] Certbot installed!'
   echo '[Starting] to build letsencrypt cert!'
   certbot certonly --standalone -d $domain  -n --register-unsafely-without-email --agree-tos
-  # certbot --apache -d $domain  -n --register-unsafely-without-email --agree-tos
-  if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
+  if [ -e /etc/letsencrypt/live/$domain*/fullchain.pem ]; then
     echo '[Success] letsencrypt certs are built!'
     service apache2 stop
     echo '[Info] Apache service stopped'
@@ -114,20 +107,22 @@ func_install_letsencrypt(){
     echo "[ERROR] letsencrypt certs failed to build.  Check that DNS A record is properly configured for this domain"
     service apache2 stop
     echo "[Info] Apache service stopped"
+    tail /var/log/letsencrypt/letsencrypt.log
     echo "[Info] Make sure you check your ufw rules"
     ufw status numbered
     exit 1
   fi
 }
 
+
 func_build_pkcs(){
   cd /etc/letsencrypt/live/$domain
   echo '[Starting] Building PKCS12 .p12 cert.'
   openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out $domainPkcs -name $domain -passout pass:$password
-  echo '[Success] Built $domainPkcs PKCS12 cert.'
+  echo "[Success] Built $domainPkcs PKCS12 cert."
   echo '[Starting] Building Java keystore via keytool.'
   keytool -importkeystore -deststorepass $password -destkeypass $password -destkeystore $domainStore -srckeystore $domainPkcs -srcstoretype PKCS12 -srcstorepass $password -alias $domain
-  echo '[Success] Java keystore $domainStore built.'
+  echo "[Success] Java keystore $domainStore built."
   cp $domainStore $tempdir
   echo '[Success] Moved Java keystore to current working directory.'
 }
@@ -143,23 +138,3 @@ main() {
 }
 
 main
-
-
-#func_install_letsencrypt(){
-#  echo '[Starting] cloning into letsencrypt!'
-#  git clone https://github.com/certbot/certbot /opt/letsencrypt
-#  echo '[Success] letsencrypt is built!'
-#  cd /opt/letsencrypt
-#  echo '[Starting] to build letsencrypt cert!'
-#  ./letsencrypt-auto --apache -d $domain -n --register-unsafely-without-email --agree-tos
-#  if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
-#    echo '[Success] letsencrypt certs are built!'
-#    service apache2 stop
-#    echo '[Info] Apache service stopped'
-#  else
-#    echo "[ERROR] letsencrypt certs failed to build.  Check that DNS A record is properly configured for this domain"
-#    service apache2 stop
-#    echo "[Info] Apache service stopped"
-#    exit 1
-#  fi
-#}

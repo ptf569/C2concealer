@@ -73,9 +73,29 @@ In addition, you can customize various attributes all throughout the profile gen
 
 If you've made it this far, then we know you'll get a lot of use out of this tool. The way we recommend viewing this tool is that we've built the skeleton code to automatically generate these profiles, now it's up to you to think through what values make sense for each attribute for your campaigns and update the data sources.
 
+## Creating redirector rewrite rules
+
+if you are standing your teamserver behind an apache or nginx redirector, your going to need some rewrite rules.
+
+With the --rewrite [apache/nginx] option, a .htaccess or nginx.conf will be generated. You will be prompted for some additional information:
+- Teamserver URL - The destination your beacon traffic will be redirected
+- Website to redirect - Where non-beacon traffic will be redirected
+- hostname [nginx only] - The web server hostname
+
+```bash
+please enter your teamserver URL (e.g. https://teamserver.com)
+> https://teamserver.com
+please enter a website to direct others to (e.g. https://website.com)
+> https://website.com
+#### Save the following as .htaccess in the root web directory
+```
+
+The outputted file will have the same randomly generated name as your mallaeble profile.
+
 ## Shoutouts
 
 Big shoutout to Raphael Mudge for constantly improving on the malleable profile feature set and the documentation to learn about it. Also, huge thanks to @killswitch-GUI for his script that automates LetsEncrypt cert generation for CS team servers. Finally, two blog posts that made life so much easier: @bluescreenofjeff's post (https://bluescreenofjeff.com/2017-01-24-how-to-write-malleable-c2-profiles-for-cobalt-strike/) and Joe Vest's post (https://posts.specterops.io/a-deep-dive-into-cobalt-strike-malleable-c2-6660e33b0e0b).
+
 
 ## Version Changelog
 
@@ -87,3 +107,4 @@ Version 1.0
 ptf update
 - Added support for CS 4.3 (malleable DNS profile)
 - Updated for use with certbot apache
+- intergrated functions from https://github.com/ptf569/cs2modrewrite

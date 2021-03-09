@@ -195,4 +195,20 @@ class Profile(object):
 			else:
 				self.profileString += val.printify()
 		
-	
+
+	def create_rewrite(self, rewrite):
+		profile = 'profiles/'+self.globalOptions.sample_name+'.profile'
+		teamserver = input("please enter your teamserver URL (e.g. https://teamserver.com)\n> ")
+		redirect = input("please enter a website to direct others to (e.g. https://website.com)\n> ")
+		if rewrite == "cs2modrewrite":
+			outfile = 'profiles/' + self.globalOptions.sample_name + '.htaccess'
+			cs2modrewrite.cs2modrewrite(profile,teamserver,redirect,outfile)
+			print("Your .htaccess file is saved {}. Put this in your web root as '.htaccess'".format(outfile))
+		if rewrite == "cs2nginx":
+			outfile = 'profiles/' + self.globalOptions.sample_name + '.nginx.conf'
+			hostname = input("Hostname for Nginx redirector\n>")
+			cs2nginx.cs2nginx(profile, teamserver, redirect, hostname, outfile)
+		else:
+			print('[Error] Invalid rewrite option!')
+			sys.exit()
+

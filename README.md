@@ -104,7 +104,9 @@ Version 1.0
 - Added support for CS 4.0 (specifically multiple HTTP variants)
 - Updated README.md
 
-ptf update
+## ptf569 update
+
+Inline with GNU General Public License v3.0, the below modifications have been made to the code:
 - Added support for CS 4.3 (malleable DNS profile)
 - Updated for use with certbot apache
-- intergrated functions from https://github.com/ptf569/cs2modrewrite
+- intergrated functions from https://github.com/ptf569/cs2modrewrite (a fork of https://github.com/threatexpress/cs2modrewrite) to allow for the auto generation of redirector rules for apache and nginx. This code is located in C2consealer/components as 'cs2modrewrite and cs2nginx'.

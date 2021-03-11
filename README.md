@@ -104,6 +104,8 @@ Version 1.0
 - Added support for CS 4.0 (specifically multiple HTTP variants)
 - Updated README.md
 
+--------------------------------------------
+
 ## ptf569 update
 
 Inline with GNU General Public License v3.0, the below modifications have been made to the code:

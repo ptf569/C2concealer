@@ -1,7 +1,7 @@
 import random
 import base64
 import uuid
-from C2concealer.data import urls, transform, reg_headers, params
+from ..data import urls, transform, reg_headers, params
 
 class getClient(object):
 

@@ -1,6 +1,6 @@
 import uuid
 import random
-from C2concealer.data import reg_headers
+from ..data import reg_headers
 
 class globalOptions(object):
 

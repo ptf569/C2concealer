@@ -1,7 +1,7 @@
 import random
 import base64
 import uuid
-from C2concealer.data import reg_headers, params, transform
+from ..data import reg_headers, params, transform
 
 
 class postServer(object):

@@ -2,7 +2,7 @@ import string
 import os, re, readline, glob
 import fnmatch
 import sys
-from profile import Profile
+from .profile import Profile
 import getpass
 import subprocess
 
@@ -136,7 +136,7 @@ def letsEncrypt():
 	print("Certificate Details:")
 	domain = input("What is the domain? (ex: google.com)\n> ")
 	password = getpass.getpass("Enter a password for securing the keystore?\n> ")
-	keystore = domain+".store"
+	keystore = os.getcwd() + "/profiles/"+domain+".store"
 	generate_cert_path = os.path.dirname(os.path.abspath(__file__)) + '/generate-cert.sh'
 	subprocess.call(['chmod','u+x',generate_cert_path])
 	subprocess.check_call([generate_cert_path,domain,password,keystore])

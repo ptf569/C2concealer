@@ -20,7 +20,7 @@ The resulting Nginx config will:
 '''
 
 
-def cs2nginx(inputfile, c2server, redirect, hostname, outfile):
+def cs2nginx(inputfile, c2server, redirect, host, outfile):
     # Make sure we were provided with vaild URLs
     # https://stackoverflow.com/questions/7160737/python-how-to-validate-a-url-in-python-malformed-or-not
     regex = re.compile(
@@ -157,7 +157,7 @@ def cs2nginx(inputfile, c2server, redirect, hostname, outfile):
             #########################
             set $C2_SERVER {c2server};
             set $REDIRECT_DOMAIN {redirect};
-            server_name {hostname};
+            server_name {host};
     
             #########################
             # Listening ports
@@ -255,9 +255,9 @@ def cs2nginx(inputfile, c2server, redirect, hostname, outfile):
         print("# {}".format(uri))
     if outfile:
         with open(outfile, 'w') as out_file:
-            out_file.write(nginx_template.format(uris=uris_string, ua=ua_string, c2server=c2server, redirect=redirect, hostname=hostname))
+            out_file.write(nginx_template.format(uris=uris_string, ua=ua_string, c2server=c2server, redirect=redirect, host=host))
     else:
-        print(nginx_template.format(uris=uris_string, ua=ua_string, c2server=c2server, redirect=redirect, hostname=hostname))
+        print(nginx_template.format(uris=uris_string, ua=ua_string, c2server=c2server, redirect=redirect, host=host))
     print("#### Save the following as /etc/nginx/nginx.conf")
 
     # Print Errors Found

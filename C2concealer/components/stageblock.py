@@ -1,6 +1,6 @@
 import random
 import datetime
-from C2concealer.data import stage
+from ..data import stage
 
 class stageBlock(object):
 

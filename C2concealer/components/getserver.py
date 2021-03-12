@@ -2,7 +2,7 @@ import random
 import base64
 import uuid
 import re
-from C2concealer.data import reg_headers, params, transform, file_type_prepend
+from ..data import reg_headers, params, transform, file_type_prepend
 
 
 class getServer(object):

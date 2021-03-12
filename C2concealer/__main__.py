@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from profile import Profile
+from .profile import Profile
 import argparse
 import sys
 import os
@@ -139,7 +139,7 @@ def main():
 				print("[x] You need to run the 'update' program from within CobaltStrike before c2lint will run.")
 				sys.exit()
 			retryCount+=1
-			os.remove((os.getcwd() + '/profiles/' + profile.globalOptions.sample_name + '.profile'))
+#			os.remove((os.getcwd() + '/C2concealer/profiles/' + profile.globalOptions.sample_name + '.profile'))
 
 			print("[-] Attempted to create {} profiles. c2lint check failed.".format(str(variant_count)))
 			print("[i] If you selected a large amount of variants, please retry again.")

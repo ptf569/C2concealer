@@ -1,7 +1,7 @@
 import random
 import uuid
 import base64
-from C2concealer.data import params, reg_headers, urls
+from ..data import params, reg_headers, urls
 
 class stagerClient(object):
 

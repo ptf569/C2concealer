@@ -3,7 +3,6 @@
 ## Title:       cs2modrewrite.py
 ## Author:      Joe Vest, Andrew Chiles
 
-import argparse
 import sys
 import re
 
@@ -27,12 +26,10 @@ def cs2modrewrite(inputfile, c2server, redirect, outfile):
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
     if re.match(regex, c2server) is None:
-        parser.print_help()
         print("[!] c2server is malformed. Are you sure {} is a valid URL?".format(c2server),file=sys.stderr)
         sys.exit(1)
 
     if re.match(regex, redirect) is None:
-        parser.print_help()
         print("[!] redirect is malformed. Are you sure {} is a valid URL?".format(redirect),file=sys.stderr)
         sys.exit(1)
 

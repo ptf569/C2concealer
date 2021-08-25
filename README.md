@@ -23,6 +23,8 @@ Flags:
 	--variant 
 		An integer defining the number of HTTP client/server variants to generate. 
 		Recommend between 1 and 5. Max 10.
+	--rewrite
+		[apache/nginx] Generate rewrite rules for a redirector
 ```
 
 ## Example Console Output
